@@ -8,21 +8,21 @@ import jp.sourceforge.stigmata.BirthmarkContext;
 import jp.sourceforge.stigmata.BirthmarkElement;
 import jp.sourceforge.stigmata.BirthmarkEnvironment;
 
-import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.Opcodes;
 
 /**
  * Abstract visitor class of extracting birthmarks from class file.
  *
  * @author Haruaki TAMADA
  */
-public abstract class BirthmarkExtractVisitor extends ClassAdapter{
+public abstract class BirthmarkExtractVisitor extends ClassVisitor{
     private Birthmark birthmark;
     private BirthmarkContext context;
     private List<Throwable> causes = new ArrayList<Throwable>();
 
     public BirthmarkExtractVisitor(ClassVisitor visitor, Birthmark birthmark, BirthmarkContext context){
-        super(visitor);
+        super(Opcodes.ASM4, visitor);
         this.birthmark = birthmark;
         this.context = context;
     }

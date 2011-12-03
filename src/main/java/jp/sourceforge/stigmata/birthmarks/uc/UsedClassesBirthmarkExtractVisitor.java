@@ -8,8 +8,8 @@ import jp.sourceforge.stigmata.birthmarks.BirthmarkExtractVisitor;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureWriter;
@@ -59,7 +59,7 @@ public class UsedClassesBirthmarkExtractVisitor extends BirthmarkExtractVisitor{
 
         MethodVisitor visitor = super.visitMethod(access, name, desc, signature, exceptions);
 
-        return new MethodAdapter(visitor){
+        return new MethodVisitor(Opcodes.ASM4, visitor){
             @Override
             public void visitTypeInsn(int opcode, String desc){
                 Type type = Type.getType("L" + desc + ";");

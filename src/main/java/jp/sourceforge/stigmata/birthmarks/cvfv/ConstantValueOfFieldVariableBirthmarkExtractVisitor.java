@@ -9,7 +9,6 @@ import jp.sourceforge.stigmata.birthmarks.BirthmarkExtractVisitor;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
@@ -70,7 +69,7 @@ public class ConstantValueOfFieldVariableBirthmarkExtractVisitor extends Birthma
         MethodVisitor visitor = super.visitMethod(access, name, desc, signature, exceptions);
 
         if(name.equals("<init>") || name.equals("<clinit>")){
-            visitor = new MethodAdapter(visitor){
+            visitor = new MethodVisitor(Opcodes.ASM4, visitor){
                 private Object constant = null;
 
                 @Override
