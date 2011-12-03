@@ -1,5 +1,7 @@
 package jp.sourceforge.stigmata.filter;
 
+import java.util.Arrays;
+
 import jp.sourceforge.stigmata.ComparisonPairFilter;
 import jp.sourceforge.stigmata.spi.ComparisonPairFilterService;
 
@@ -28,8 +30,10 @@ public abstract class AbstractComparisonPairFilter implements ComparisonPairFilt
     @Override
     public void setCriterion(Criterion criterion){
         if(!isAcceptable(criterion)){
-            throw new IllegalArgumentException("illegal criterion: "
-                    + criterion + ": accepts only " + getAcceptableCriteria());
+            throw new IllegalArgumentException(
+                "illegal criterion: " + criterion +
+                ": accepts only " + Arrays.toString(getAcceptableCriteria())
+            );
         }
         this.criterion = criterion;
     }

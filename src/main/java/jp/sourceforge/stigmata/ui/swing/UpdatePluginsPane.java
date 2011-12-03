@@ -297,7 +297,7 @@ public class UpdatePluginsPane extends JPanel{
             StringWriter out = new StringWriter();
             PrintWriter writer = new PrintWriter(out);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
             String line;
             while((line = in.readLine()) != null){
                 writer.println(line);

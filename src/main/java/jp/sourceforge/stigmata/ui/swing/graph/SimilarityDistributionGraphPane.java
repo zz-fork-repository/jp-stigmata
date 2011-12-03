@@ -79,11 +79,11 @@ public class SimilarityDistributionGraphPane extends JPanel{
         double w = (d.width / 100d);
 
         Integer v1 = distributions.get(0);
-        if(v1 == null) v1 = new Integer(0);
+        if(v1 == null) v1 = 0;
         double x = 20;
         for(int i = 0; i <= 100; i++){
             Integer v2 = distributions.get(i);
-            if(v2 == null) new Integer(0);
+            if(v2 == null) v2 = 0;
 
             double hh1 = v1 * ((double)height / totalCount);
             double hh2 = v2 * ((double)height / totalCount);
@@ -124,10 +124,10 @@ public class SimilarityDistributionGraphPane extends JPanel{
     private void initializeData(){
         maxFrequency = 0;
         for(int i = 0; i <= 100; i++){
-            Integer frequency = distributions.get(new Integer(i));
+            Integer frequency = distributions.get(i);
             if(frequency == null){
-                frequency = new Integer(0);
-                distributions.put(new Integer(i), frequency);
+                frequency = 0;
+                distributions.put(i, frequency);
             }
             if(maxFrequency < frequency.intValue()){
                 maxFrequency = frequency.intValue();

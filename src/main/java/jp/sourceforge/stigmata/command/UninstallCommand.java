@@ -1,8 +1,9 @@
 package jp.sourceforge.stigmata.command;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,16 +41,13 @@ public class UninstallCommand extends AbstractStigmataCommand{
 
         for(int i = 0; i < args.length; i++){
             BirthmarkService service = env.getService(args[i]);
-            if(service instanceof BirthmarkService){
-                env.removeService(args[i]);
-                removeServiceInConfigFile = true;
-            }
-            else{
-                String fileName = getPluginFileNameOfService(context, service);
-                if(fileName != null){
-                    File pluginFile = new File(pluginsDir, fileName);
-                    pluginFile.renameTo(new File(pluginFile.getParentFile(), pluginFile.getName() + ".back"));
-                }
+            env.removeService(args[i]);
+            removeServiceInConfigFile = true;
+
+            String fileName = getPluginFileNameOfService(context, service);
+            if(fileName != null){
+                File pluginFile = new File(pluginsDir, fileName);
+                pluginFile.renameTo(new File(pluginFile.getParentFile(), pluginFile.getName() + ".back"));
             }
         }
         if(removeServiceInConfigFile){
@@ -61,7 +59,10 @@ public class UninstallCommand extends AbstractStigmataCommand{
     private void updateConfigFile(BirthmarkEnvironment env){
         File configFile = new File(BirthmarkEnvironment.getStigmataHome(), "stigmata.xml");
         try{
-            new ConfigFileExporter(env).export(new PrintWriter(new FileWriter(configFile)));
+            String encoding = getProperty(env, new String[] { "encoding.output", "encoding", }, "utf-8");
+            new ConfigFileExporter(env).export(
+                new PrintWriter(new OutputStreamWriter(new FileOutputStream(configFile), encoding))
+            );
         } catch(IOException e){
             e.printStackTrace();
         }

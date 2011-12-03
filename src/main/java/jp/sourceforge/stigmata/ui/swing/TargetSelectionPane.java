@@ -121,9 +121,11 @@ public class TargetSelectionPane extends JPanel{
                     exts[i], MessageFormat.format(getSelectDescription(), exts[i])
                 );
             }
-            ;
         }
-        return filters;
+        FileFilter[] newFilters = new FileFilter[filters.length];
+        System.arraycopy(filters, 0, newFilters, 0, filters.length);
+
+        return newFilters;
     }
 
     public String getSelectDescription(){
@@ -181,7 +183,8 @@ public class TargetSelectionPane extends JPanel{
     }
 
     public void setFileFilters(FileFilter[] filters){
-        this.filters = filters;
+        this.filters = new FileFilter[filters.length];
+        System.arraycopy(filters, 0, this.filters, 0, filters.length);
     }
 
     public void setMultipleSelectable(boolean flag){
@@ -394,7 +397,7 @@ public class TargetSelectionPane extends JPanel{
         }
     };
 
-    private class TargetTransferable implements Transferable{
+    private static class TargetTransferable implements Transferable{
         private String[] strings;
 
         public TargetTransferable(String[] strings){

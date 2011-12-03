@@ -107,10 +107,12 @@ public class InstallCommand extends AbstractStigmataCommand{
     private void copyFile(File source, File dest){
         byte[] data = new byte[256];
         int read;
+        InputStream in = null;
+        OutputStream out = null;
         
         try{
-            InputStream in = new FileInputStream(source);
-            OutputStream out = new FileOutputStream(dest);
+            in = new FileInputStream(source);
+            out = new FileOutputStream(dest);
 
             while((read = in.read(data)) != -1){
                 out.write(data, 0, read);
@@ -118,6 +120,30 @@ public class InstallCommand extends AbstractStigmataCommand{
             in.close();
             out.close();
         } catch(IOException e){
+        } finally{
+            String message = null;
+            if(in != null){
+                try{
+                    in.close();
+                } catch(IOException e){
+                    message = e.getMessage();
+                }
+            }
+            if(out != null){
+                try{
+                    out.close();
+                } catch(IOException e){
+                    if(message != null){
+                        message += ", " + e.getMessage();
+                    }
+                    else{
+                        message = e.getMessage();
+                    }
+                }
+            }
+            if(message != null){
+                throw new InternalError(message);
+            }
         }
     }
 }

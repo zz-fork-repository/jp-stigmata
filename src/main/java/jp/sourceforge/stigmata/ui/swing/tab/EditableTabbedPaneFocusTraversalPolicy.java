@@ -3,6 +3,7 @@ package jp.sourceforge.stigmata.ui.swing.tab;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
+import java.io.Serializable;
 
 import javax.swing.JTextField;
 
@@ -13,7 +14,9 @@ import javax.swing.JTextField;
  * @author Haruaki Tamada
  * @author Terai Atsuhiro
  */
-class EditableTabbedPaneFocusTraversalPolicy extends FocusTraversalPolicy{
+class EditableTabbedPaneFocusTraversalPolicy extends FocusTraversalPolicy implements Serializable{
+    private static final long serialVersionUID = 7521938828453530777L;
+
     private JTextField editor;
 
     public EditableTabbedPaneFocusTraversalPolicy(JTextField editor){

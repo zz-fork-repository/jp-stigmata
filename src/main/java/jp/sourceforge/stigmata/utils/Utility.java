@@ -2,7 +2,6 @@ package jp.sourceforge.stigmata.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -64,11 +63,11 @@ public class Utility{
         if(pluginFile == null){
             flag = false;
         }
-        if(!pluginFile.getName().endsWith(".jar")){
+        if(flag && !pluginFile.getName().endsWith(".jar")){
             messages.add("install.error.notjarfile");
             flag = false;
         }
-        if(!pluginFile.exists()){
+        if(flag && !pluginFile.exists()){
             messages.add("install.error.file.missing");
             flag = false;
         }

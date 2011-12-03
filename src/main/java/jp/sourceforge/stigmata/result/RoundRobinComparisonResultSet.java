@@ -1,6 +1,6 @@
 package jp.sourceforge.stigmata.result;
 
-import java.net.URL;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -120,7 +120,7 @@ public class RoundRobinComparisonResultSet extends AbstractComparisonResultSet{
 
     @Override
     public Iterator<BirthmarkSet> pairSources(){
-        Map<URL, BirthmarkSet> map = new HashMap<URL, BirthmarkSet>();
+        Map<URI, BirthmarkSet> map = new HashMap<URI, BirthmarkSet>();
         if(extraction.isTableType()){
             for(Iterator<BirthmarkSet> i = extraction.birthmarkSets(ExtractionTarget.TARGET_X); i.hasNext(); ){
                 BirthmarkSet bs = i.next();

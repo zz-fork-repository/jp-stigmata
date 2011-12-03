@@ -35,13 +35,13 @@ public class TypeAndValueBirthmarkElement extends BirthmarkElement implements Se
         if(signature.length() == 1 && value == null){
             switch(signature.charAt(0)){
             case 'Z': value = Boolean.FALSE;  break;
-            case 'D': value = new Double(0d); break;
-            case 'F': value = new Float(0f);  break;
+            case 'D': value = Double.valueOf(0d); break;
+            case 'F': value = Float.valueOf(0f);  break;
             case 'C':
             case 'S':
             case 'B':
             case 'I':
-            default:  value = new Integer(0); break;
+            default:  value = Integer.valueOf(0); break;
             }
         }
 
@@ -67,19 +67,23 @@ public class TypeAndValueBirthmarkElement extends BirthmarkElement implements Se
 
     @Override
     public boolean equals(Object o){
-        if(o instanceof TypeAndValueBirthmarkElement){
-            TypeAndValueBirthmarkElement tvbe = (TypeAndValueBirthmarkElement)o;
+        boolean flag = false;
+        if(o != null){
+            String className = o.getClass().getName();
+            if(className.equals(TypeAndValueBirthmarkElement.class.getName())){
+                TypeAndValueBirthmarkElement tvbe = (TypeAndValueBirthmarkElement)o;
 
-            if(getSignature().equals(tvbe.getSignature())){
-                if(getValue() == null && tvbe.getValue() == null){
-                    return true;
-                }
-                else if(getValue() != null && tvbe.getValue() != null){
-                    return getValue().equals(tvbe.getValue());
+                if(getSignature().equals(tvbe.getSignature())){
+                    if(getValue() == null && tvbe.getValue() == null){
+                        flag = true;
+                    }
+                    else if(getValue() != null && tvbe.getValue() != null){
+                        flag = getValue().equals(tvbe.getValue());
+                    }
                 }
             }
         }
-        return false;
+        return flag;
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{

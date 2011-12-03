@@ -1,6 +1,6 @@
 package jp.sourceforge.stigmata.result;
 
-import java.net.URL;
+import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -116,7 +116,7 @@ public class CertainPairComparisonResultSet extends AbstractComparisonResultSet{
     }
 
     private Collection<BirthmarkSet> createSources(){
-        Map<URL, BirthmarkSet> map = new HashMap<URL, BirthmarkSet>();
+        Map<URI, BirthmarkSet> map = new HashMap<URI, BirthmarkSet>();
         for(Iterator<ComparisonPair> i = iterator(); i.hasNext(); ){
             ComparisonPair pair = i.next();
             addToMap(map, pair.getTarget1());
@@ -125,7 +125,7 @@ public class CertainPairComparisonResultSet extends AbstractComparisonResultSet{
         return map.values();
     }
 
-    private void addToMap(Map<URL, BirthmarkSet> map, BirthmarkSet set){
+    private void addToMap(Map<URI, BirthmarkSet> map, BirthmarkSet set){
         map.put(set.getLocation(), set);
     }
 

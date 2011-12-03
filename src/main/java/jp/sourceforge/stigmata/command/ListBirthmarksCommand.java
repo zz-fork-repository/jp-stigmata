@@ -1,7 +1,8 @@
 package jp.sourceforge.stigmata.command;
 
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 import jp.sourceforge.stigmata.BirthmarkContext;
@@ -28,12 +29,13 @@ public class ListBirthmarksCommand extends AbstractStigmataCommand{
 
         try{
             PrintWriter out;
+            String encoding = getProperty(context, new String[] { "encoding.output", "encoding", }, "utf-8");
             if(args.length == 0){
-                out = new PrintWriter(System.out);
+                out = new PrintWriter(new OutputStreamWriter(System.out, encoding));
             }
             else{
                 String target = validateTarget(args[0], context.getFormat());
-                out = new PrintWriter(new FileWriter(target));
+                out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(target), encoding));
             }
             formatter.printResult(out, spis);
         }catch(IOException e){

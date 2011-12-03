@@ -1,7 +1,7 @@
 package jp.sourceforge.stigmata.result;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -200,18 +200,18 @@ public class RDBExtractionResultSet extends AbstractExtractionResultSet{
 
         @Override
         public Object handle(ResultSet rs) throws SQLException{
-            Map<URL, BirthmarkSet> map = new HashMap<URL, BirthmarkSet>();
+            Map<URI, BirthmarkSet> map = new HashMap<URI, BirthmarkSet>();
 
             while(rs.next()){
                 try{
                     String name = rs.getString("NAME");
                     String location = rs.getString("LOCATION");
 
-                    URL url = new URL(location);
-                    BirthmarkSet bs = map.get(url);
+                    URI uri = new URI(location);
+                    BirthmarkSet bs = map.get(uri);
                     if(bs == null){
-                        bs = new BirthmarkSet(name, url);
-                        map.put(url, bs);
+                        bs = new BirthmarkSet(name, uri);
+                        map.put(uri, bs);
                     }
                     String type = rs.getString("TYPE");
 
@@ -222,8 +222,7 @@ public class RDBExtractionResultSet extends AbstractExtractionResultSet{
                     }
                     String element = rs.getString("ELEMENT");
                     birthmark.addElement(env.getService(type).getExtractor().buildElement(element));
-
-                } catch(MalformedURLException e){
+                } catch(URISyntaxException e){
                 }
             }
             return map.values().toArray(new BirthmarkSet[map.size()]);

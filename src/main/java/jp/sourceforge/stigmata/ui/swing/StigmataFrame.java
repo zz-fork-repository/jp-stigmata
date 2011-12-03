@@ -8,14 +8,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.ButtonGroup;
@@ -191,7 +190,7 @@ public class StigmataFrame extends JFrame{
         int compareDetail = getNextCount("compare_detail");
 
         GUIUtility.addNewTab(getMessages(), "comparedetail", tabPane, detail,
-            new Object[] { new Integer(compareDetail), },
+            new Object[] { Integer.valueOf(compareDetail), },
             new Object[] {
                 Utility.array2String(target1.getBirthmarkTypes()),
                 target1.getName(),
@@ -210,7 +209,7 @@ public class StigmataFrame extends JFrame{
             int compareCount = getNextCount("compare");
             GUIUtility.addNewTab(
                 getMessages(), "compare", tabPane, compare,
-                new Object[] { new Integer(compareCount), },
+                new Object[] { Integer.valueOf(compareCount), },
                 new Object[] {
                     Utility.array2String(context.getBirthmarkTypes()),
                     Utility.array2String(targetX),
@@ -235,7 +234,7 @@ public class StigmataFrame extends JFrame{
             int compareCount = getNextCount("compare");
             GUIUtility.addNewTab(
                 getMessages(), "compare", tabPane, new PairComparisonResultSetPane(this, resultset),
-                new Object[] { new Integer(compareCount), },
+                new Object[] { Integer.valueOf(compareCount), },
                 new Object[] {
                     Utility.array2String(context.getBirthmarkTypes()),
                     Utility.array2String(targetX),
@@ -257,7 +256,7 @@ public class StigmataFrame extends JFrame{
             GUIUtility.addNewTab(
                 getMessages(), "comparepair", tabPane,
                 new PairComparisonResultSetPane(this, resultset),
-                new Object[] { new Integer(comparePair), },
+                new Object[] { Integer.valueOf(comparePair), },
                 new Object[] {
                     Utility.array2String(context.getBirthmarkTypes()),
                     Utility.array2String(targetX),
@@ -288,7 +287,7 @@ public class StigmataFrame extends JFrame{
                 GUIUtility.addNewTab(
                     getMessages(), "comparepair", tabPane,
                     new PairComparisonResultSetPane(this, crs),
-                    new Object[] { new Integer(comparePair), },
+                    new Object[] { Integer.valueOf(comparePair), },
                     new Object[] {
                         Utility.array2String(context.getBirthmarkTypes()),
                         Utility.array2String(targetX),
@@ -306,7 +305,7 @@ public class StigmataFrame extends JFrame{
         GUIUtility.addNewTab(
             getMessages(), "comparisonresultset", tabPane,
             new PairComparisonResultSetPane(this, resultset),
-            new Object[] { new Integer(comparePair), }, null, true
+            new Object[] { Integer.valueOf(comparePair), }, null, true
         );
     }
 
@@ -316,7 +315,7 @@ public class StigmataFrame extends JFrame{
             int mappingGraphCount = getNextCount("mds_graph");
             GUIUtility.addNewTab(
                 getMessages(), "mappinggraph", tabPane, panel,
-                new Object[] { new Integer(mappingGraphCount), }, null, true
+                new Object[] { Integer.valueOf(mappingGraphCount), }, null, true
             );
         } catch(Exception e){
             showExceptionMessage(e);
@@ -329,7 +328,7 @@ public class StigmataFrame extends JFrame{
         int similarityGraphCount = getNextCount("similarity_graph");
         GUIUtility.addNewTab(
             getMessages(), "similaritygraph", tabPane, graph,
-            new Object[] { new Integer(similarityGraphCount), }, null, true
+            new Object[] { Integer.valueOf(similarityGraphCount), }, null, true
         );
     }
 
@@ -338,7 +337,7 @@ public class StigmataFrame extends JFrame{
         int compareCount = getNextCount("compare");
         GUIUtility.addNewTab(
             getMessages(), "compare", tabPane, compare,
-            new Object[] { new Integer(compareCount), },
+            new Object[] { Integer.valueOf(compareCount), },
             new Object[] {
                 Utility.array2String(ers.getBirthmarkTypes()),
                 Utility.array2String(new String[0]),
@@ -352,7 +351,7 @@ public class StigmataFrame extends JFrame{
         BirthmarkExtractionResultPane viewer = new BirthmarkExtractionResultPane(this, ers);
         GUIUtility.addNewTab(
             getMessages(), "extract", tabPane, viewer,
-            new Object[] { new Integer(extractCount), },
+            new Object[] { Integer.valueOf(extractCount), },
             new Object[] { Utility.array2String(ers.getBirthmarkTypes()), }, true
         );
     }
@@ -374,7 +373,7 @@ public class StigmataFrame extends JFrame{
         Map<String, String> mapping = new HashMap<String, String>();
         BufferedReader in = null;
         try{
-            in = new BufferedReader(new FileReader(file));
+            in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
             String line;
             while((line = in.readLine()) != null){
                 String[] tokens = line.split(", *");
@@ -791,7 +790,7 @@ public class StigmataFrame extends JFrame{
     private int getNextCount(String label){
         Integer i = countmap.get(label);
         if(i == null){
-            i = new Integer(0);
+            i = 0;
         }
         i = i + 1;
         countmap.put(label, i);

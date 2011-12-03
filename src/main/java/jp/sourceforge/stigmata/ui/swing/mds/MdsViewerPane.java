@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,10 +73,11 @@ public class MdsViewerPane extends JPanel implements ZoomEnabler, MessageManager
     private ZoomInAction zoomin;
     private ZoomOutAction zoomout;
 
-    public MdsViewerPane(StigmataFrame stigmata, BirthmarkSet[] set, BirthmarkContext context){
+    public MdsViewerPane(StigmataFrame stigmata, BirthmarkSet[] bset, BirthmarkContext context){
         this.stigmata = stigmata;
         this.context = context;
-        this.set = set;
+        this.set = new BirthmarkSet[bset.length];
+        System.arraycopy(bset, 0, set, 0, bset.length);
 
         try{
             initLayouts();
@@ -140,7 +141,7 @@ public class MdsViewerPane extends JPanel implements ZoomEnabler, MessageManager
         return table;
     }
 
-    private String getGroupName(URL location){
+    private String getGroupName(URI location){
         String url = location.toString();
         if(url.startsWith("jar:")){
             url = url.substring("jar:".length(), url.lastIndexOf('!'));

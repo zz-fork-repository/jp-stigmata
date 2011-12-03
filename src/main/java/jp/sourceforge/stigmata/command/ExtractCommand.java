@@ -1,6 +1,7 @@
 package jp.sourceforge.stigmata.command;
 
 import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.util.Iterator;
 
 import jp.sourceforge.stigmata.BirthmarkContext;
@@ -48,7 +49,8 @@ public class ExtractCommand extends AbstractStigmataCommand{
 
             ResultPrinterService spi = stigmata.getPrinterManager().getService(context.getFormat());
             ExtractionResultSetPrinter formatter = spi.getExtractionResultSetPrinter();
-            formatter.printResult(new PrintWriter(System.out), ers);
+            String encoding = getProperty(context, new String[] { "encoding.output", "encoding", }, "utf-8");
+            formatter.printResult(new PrintWriter(new OutputStreamWriter(System.out, encoding)), ers);
         }catch(Exception ex){
             ex.printStackTrace();
         }

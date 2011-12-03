@@ -47,7 +47,7 @@ public class ClippedLRListCellRenderer extends JPanel implements ListCellRendere
             right.setText(String.valueOf(item.getRight()));
         }
 
-        if(item.getIcon() != null){
+        if(item != null && item.getIcon() != null){
             left.setIcon(item.getIcon());
         }
 

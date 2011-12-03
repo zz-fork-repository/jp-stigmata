@@ -1,5 +1,6 @@
 package jp.sourceforge.stigmata;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import jp.sourceforge.stigmata.spi.BirthmarkService;
@@ -7,7 +8,9 @@ import jp.sourceforge.stigmata.spi.BirthmarkService;
 /**
  * @author Haruaki TAMADA
  */
-class BirthmarkSpiComparator implements Comparator<BirthmarkService>{
+class BirthmarkSpiComparator implements Comparator<BirthmarkService>, Serializable{
+    private static final long serialVersionUID = 8194452116506240274L;
+
     /**
      * default constructor
      */

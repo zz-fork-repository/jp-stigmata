@@ -18,9 +18,9 @@ import jp.sourceforge.talisman.i18n.Messages;
  * @author Haruaki TAMADA
  */
 public abstract class BirthmarkSelectablePane extends JPanel implements BirthmarkServiceListener{
-	private static final long serialVersionUID = 7057130952947891635L;
+    private static final long serialVersionUID = 7057130952947891635L;
 
-	private StigmataFrame stigmata;
+    private StigmataFrame stigmata;
     private Set<String> selectedServices = new HashSet<String>();
     private Map<String, BirthmarkSelection> services;
     private List<DataChangeListener> listeners = new ArrayList<DataChangeListener>();
@@ -115,10 +115,10 @@ public abstract class BirthmarkSelectablePane extends JPanel implements Birthmar
 
     @Override
     public void serviceRemoved(BirthmarkService service){
-        BirthmarkSelection elem = services.get(service);
+        BirthmarkSelection elem = services.get(service.getType());
         if(elem != null){
-            selectedServices.remove(service);
-            services.remove(service);
+            selectedServices.remove(service.getType());
+            services.remove(service.getType());
         }
         fireEvent();
     }

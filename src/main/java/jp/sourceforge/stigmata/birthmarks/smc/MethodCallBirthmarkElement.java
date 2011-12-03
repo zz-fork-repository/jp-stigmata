@@ -48,12 +48,15 @@ public class MethodCallBirthmarkElement extends BirthmarkElement implements Seri
     @Override
     public boolean equals(Object o){
         boolean flag = false;
-        if(o instanceof MethodCallBirthmarkElement){
-            MethodCallBirthmarkElement mcbe = (MethodCallBirthmarkElement)o;
+        if(o != null){
+            String className = o.getClass().getName();
+            if(className.equals(MethodCallBirthmarkElement.class.getName())){
+                MethodCallBirthmarkElement mcbe = (MethodCallBirthmarkElement)o;
 
-            flag = getClassName().equals(mcbe.getClassName()) &&
-                getMethodName().equals(mcbe.getMethodName())  &&
-                getSignature().equals(mcbe.getSignature());
+                flag = getClassName().equals(mcbe.getClassName()) &&
+                    getMethodName().equals(mcbe.getMethodName())  &&
+                    getSignature().equals(mcbe.getSignature());
+            }
         }
 
         return flag;

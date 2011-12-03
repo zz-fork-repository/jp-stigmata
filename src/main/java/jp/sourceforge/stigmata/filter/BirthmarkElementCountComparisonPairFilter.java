@@ -156,8 +156,9 @@ public class BirthmarkElementCountComparisonPairFilter extends AbstractCompariso
         switch(getTarget()){
         case TARGET_1:       sb.append("target1"); break;
         case TARGET_2:       sb.append("target2"); break;
-        case BOTH_TARGETS:   sb.append("(target1&target2)");    break;
-        case ONE_OF_TARGETS: sb.append("(target1|target2)");
+        case BOTH_TARGETS:   sb.append("(target1&target2)"); break;
+        case ONE_OF_TARGETS: sb.append("(target1|target2)"); break;
+        default:
         }
         sb.append(".").append(birthmarkType);
         sb.append(".size");
@@ -168,6 +169,7 @@ public class BirthmarkElementCountComparisonPairFilter extends AbstractCompariso
         case LESS_THAN:      sb.append(" <  "); break;
         case EQUALS_AS:      sb.append(" == "); break;
         case NOT_EQUALS_AS:  sb.append(" != "); break;
+        default:
         }
         sb.append(Integer.toString(getThreshold()));
 

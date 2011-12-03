@@ -27,7 +27,10 @@ public class NullBirthmarkElement extends BirthmarkElement{
 
     @Override
     public boolean equals(Object o){
-        return o instanceof NullBirthmarkElement;
+        boolean flag = o != null && o.getClass().equals(getClass());
+        flag = flag && this == o;
+
+        return flag;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package jp.sourceforge.stigmata.utils;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 
@@ -12,8 +14,8 @@ public class ArrayIterator<T> implements Iterator<T>{
     private int currentIndex = 0;
 
     public ArrayIterator(T[] values){
-        this.values = values;
         if(values != null){
+            this.values = Arrays.copyOf(values, values.length);
             length = values.length;
         }
         else{
@@ -28,6 +30,9 @@ public class ArrayIterator<T> implements Iterator<T>{
 
     @Override
     public T next(){
+        if(currentIndex < 0 || currentIndex >= values.length){
+            throw new NoSuchElementException();
+        }
         T value = values[currentIndex];
         currentIndex++;
         return value;

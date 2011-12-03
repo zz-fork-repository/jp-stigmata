@@ -68,11 +68,11 @@ class LabelMap{
     }
 
     public int getGroupId(String groupLabel){
-        Integer i = new Integer(0);
+        Integer i = 0;
         if(isGroupEnabled()){
             i = gids.get(groupLabel);
             if(i == null){
-                i = new Integer(0);
+                i = 0;
             }
         }
         return i;
@@ -99,7 +99,7 @@ class LabelMap{
         for(Map.Entry<String, String> entry: groups.entrySet()){
             Integer i = map.get(entry.getValue());
             if(i == null){
-                i = new Integer(0);
+                i = 0;
             }
             map.put(entry.getValue(), i + 1);
         }

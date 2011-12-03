@@ -76,7 +76,7 @@ public class ConstantValueOfFieldVariableBirthmarkExtractVisitor extends Birthma
                 @Override
                 public void visitIntInsn(int opcode, int operand){
                     if(opcode == Opcodes.BIPUSH || opcode == Opcodes.SIPUSH){
-                        constant = new Integer(operand);
+                        constant = Integer.valueOf(operand);
                     }
                     super.visitIntInsn(opcode, operand);
                 }
@@ -92,20 +92,20 @@ public class ConstantValueOfFieldVariableBirthmarkExtractVisitor extends Birthma
 
                 @Override
                 public void visitInsn(int opcode){
-                    if(opcode == Opcodes.ICONST_M1)     constant = new Integer(-1);
-                    else if(opcode == Opcodes.ICONST_0) constant = new Integer(0);
-                    else if(opcode == Opcodes.ICONST_1) constant = new Integer(1);
-                    else if(opcode == Opcodes.ICONST_2) constant = new Integer(2);
-                    else if(opcode == Opcodes.ICONST_3) constant = new Integer(3);
-                    else if(opcode == Opcodes.ICONST_4) constant = new Integer(4);
-                    else if(opcode == Opcodes.ICONST_5) constant = new Integer(5);
-                    else if(opcode == Opcodes.LCONST_0) constant = new Long(0L);
-                    else if(opcode == Opcodes.LCONST_1) constant = new Long(1L);
-                    else if(opcode == Opcodes.DCONST_0) constant = new Double(0D);
-                    else if(opcode == Opcodes.DCONST_1) constant = new Double(1D);
-                    else if(opcode == Opcodes.FCONST_0) constant = new Float(0F);
-                    else if(opcode == Opcodes.FCONST_1) constant = new Float(1F);
-                    else if(opcode == Opcodes.FCONST_2) constant = new Float(2F);
+                    if(opcode == Opcodes.ICONST_M1)     constant = Integer.valueOf(-1);
+                    else if(opcode == Opcodes.ICONST_0) constant = Integer.valueOf(0);
+                    else if(opcode == Opcodes.ICONST_1) constant = Integer.valueOf(1);
+                    else if(opcode == Opcodes.ICONST_2) constant = Integer.valueOf(2);
+                    else if(opcode == Opcodes.ICONST_3) constant = Integer.valueOf(3);
+                    else if(opcode == Opcodes.ICONST_4) constant = Integer.valueOf(4);
+                    else if(opcode == Opcodes.ICONST_5) constant = Integer.valueOf(5);
+                    else if(opcode == Opcodes.LCONST_0) constant = Long.valueOf(0L);
+                    else if(opcode == Opcodes.LCONST_1) constant = Long.valueOf(1L);
+                    else if(opcode == Opcodes.DCONST_0) constant = Double.valueOf(0D);
+                    else if(opcode == Opcodes.DCONST_1) constant = Double.valueOf(1D);
+                    else if(opcode == Opcodes.FCONST_0) constant = Float.valueOf(0F);
+                    else if(opcode == Opcodes.FCONST_1) constant = Float.valueOf(1F);
+                    else if(opcode == Opcodes.FCONST_2) constant = Float.valueOf(2F);
 
                     super.visitInsn(opcode);
                 }

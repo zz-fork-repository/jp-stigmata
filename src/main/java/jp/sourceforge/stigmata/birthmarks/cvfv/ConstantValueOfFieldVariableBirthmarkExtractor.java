@@ -51,13 +51,13 @@ public class ConstantValueOfFieldVariableBirthmarkExtractor extends ASMBirthmark
                 else                     elementValue = Boolean.FALSE;
                 break;
             }
-            case 'C': elementValue = new Character(subValue.charAt(0)); break;
-            case 'D': elementValue = new Double(subValue);  break;
-            case 'F': elementValue = new Float(subValue);   break;
-            case 'S': elementValue = new Short(subValue);   break;
-            case 'B': elementValue = new Byte(subValue);    break;
-            case 'I': elementValue = new Integer(subValue); break;
-            default:  elementValue = value; break;
+            case 'C': elementValue = subValue.charAt(0); break;
+            case 'D': elementValue = subValue;           break;
+            case 'F': elementValue = subValue;           break;
+            case 'S': elementValue = subValue;           break;
+            case 'B': elementValue = subValue;           break;
+            case 'I': elementValue = subValue;           break;
+            default:  elementValue = value;              break;
             }
     	}
     	return new TypeAndValueBirthmarkElement(signature, elementValue);

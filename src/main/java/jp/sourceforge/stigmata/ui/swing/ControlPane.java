@@ -6,8 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -119,7 +120,7 @@ public class ControlPane extends JPanel{
         BirthmarkEnvironment environment = generateEnvironment();
         ConfigFileExporter bce = new ConfigFileExporter(environment);
         try{
-            PrintWriter out = new PrintWriter(new FileWriter(file));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
             bce.export(out);
             out.close();
         } catch(IOException e){

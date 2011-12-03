@@ -3,9 +3,10 @@ package jp.sourceforge.stigmata;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -137,7 +138,16 @@ public class Stigmata{
                 BirthmarkEnvironment.resetSettings();
             }
         }
-        initConfiguration(target);
+        try{
+            initConfiguration(target);
+        } finally{
+            if(target != null){
+                try{
+                    target.close();
+                } catch(IOException e){
+                }
+            }
+        }
     }
 
     private void initConfiguration(InputStream in){
@@ -181,7 +191,14 @@ public class Stigmata{
             File file = new File(parent, fileName);
             if(!file.exists()){
                 ConfigFileExporter exporter = new ConfigFileExporter(defaultEnvironment);
-                exporter.export(new PrintWriter(new FileWriter(file)));
+                String encoding = defaultEnvironment.getProperty("encoding.config");
+                if(encoding == null){
+                    encoding = defaultEnvironment.getProperty("encoding");
+                }
+                if(encoding == null){
+                    encoding = "utf-8";
+                }
+                exporter.export(new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)));
             }
         } catch(IOException e){
             e.printStackTrace();

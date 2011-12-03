@@ -161,7 +161,7 @@ public class ConfigFileExporter{
     private void exportServices(PrintWriter out) throws IOException{
         out.println("  <birthmark-services>");
         for(BirthmarkService service: environment.getServices()){
-            if(service.isExperimental() && service instanceof BirthmarkService){
+            if(service.isExperimental()){
                 out.println("    <birthmark-service>");
                 out.printf("      <type>%s</type>%n", service.getType());
                 if(service instanceof ReflectedBirthmarkService){

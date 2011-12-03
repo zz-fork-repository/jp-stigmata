@@ -23,7 +23,7 @@ public class LicenseCommand extends AbstractStigmataCommand{
         BufferedReader reader = null;
         try{
             InputStream in = getClass().getResourceAsStream("/META-INF/license.txt");
-            reader = new BufferedReader(new InputStreamReader(in));
+            reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
             String line;
 
             while((line = reader.readLine()) != null){
@@ -38,6 +38,7 @@ public class LicenseCommand extends AbstractStigmataCommand{
                 try{
                     reader.close();
                 } catch(IOException e){
+                    throw new InternalError(e.getMessage());
                 }
             }
         }

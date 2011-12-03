@@ -1,6 +1,6 @@
 package jp.sourceforge.stigmata;
 
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class BirthmarkSet implements Iterable<Birthmark>{
     /**
      * location of target is loaded from.
      */
-    private URL location;
+    private URI location;
 
     /**
      * map for birthmarks.
@@ -29,7 +29,7 @@ public class BirthmarkSet implements Iterable<Birthmark>{
     /**
      * constructor.
      */
-    public BirthmarkSet(String name, URL location){
+    public BirthmarkSet(String name, URI location){
         this.name = name;
         this.location = location;
     }
@@ -63,7 +63,7 @@ public class BirthmarkSet implements Iterable<Birthmark>{
     /**
      * return the location.
      */
-    public URL getLocation(){
+    public URI getLocation(){
         return location;
     }
 

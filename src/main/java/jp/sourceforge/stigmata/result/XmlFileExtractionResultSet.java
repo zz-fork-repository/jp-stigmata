@@ -2,13 +2,16 @@ package jp.sourceforge.stigmata.result;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -216,16 +219,18 @@ public class XmlFileExtractionResultSet extends AbstractExtractionResultSet{
     private static class BirthmarkSetStAXIterator implements Iterator<BirthmarkSet>{
         private XMLEventReader reader = null;
         private BirthmarkSet nextObject;
-        private List<URL> validItems;
+        private List<URI> validItems;
         private BirthmarkEnvironment env;
         private BirthmarkContext context;
 
-        public BirthmarkSetStAXIterator(File file, List<URL> validItems, BirthmarkContext context){
+        public BirthmarkSetStAXIterator(File file, List<URI> validItems, BirthmarkContext context){
             try{
                 XMLInputFactory factory = XMLInputFactory.newInstance();
-                BufferedReader in = new BufferedReader(new FileReader(file));
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
                 reader = factory.createXMLEventReader(in);
             } catch(FileNotFoundException e){
+            } catch(UnsupportedEncodingException e){
             } catch(XMLStreamException e){
             }
             this.validItems = validItems;
@@ -307,9 +312,9 @@ public class XmlFileExtractionResultSet extends AbstractExtractionResultSet{
                             throw new XMLStreamException("incompatible with definition");
                         }
                         try{
-                            URL url = new URL(location);
-                            bs = new BirthmarkSet(className, url);
-                        } catch(MalformedURLException e){
+                            URI uri = new URI(location);
+                            bs = new BirthmarkSet(className, uri);
+                        } catch(URISyntaxException e){
                             e.printStackTrace();
                         }
                     }
@@ -352,7 +357,7 @@ public class XmlFileExtractionResultSet extends AbstractExtractionResultSet{
     private static class XmlFile{
         private ExtractionResultSetXmlPrinter formatter;
         private BirthmarkContext context;
-        private List<URL> addList = new ArrayList<URL>();
+        private List<URI> addList = new ArrayList<URI>();
         private int size;
         private File file;
         private PrintWriter out;
@@ -373,7 +378,7 @@ public class XmlFileExtractionResultSet extends AbstractExtractionResultSet{
         public void addBirthmarkSet(BirthmarkSet bs) throws BirthmarkStoreException{
             if(formatter == null){
                 try{
-                    out = new PrintWriter(new FileWriter(file));
+                    out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
                     formatter = new ExtractionResultSetXmlPrinter();
                     formatter.printHeader(out);
                     out.printf("    <unit>%s</unit>%n", context.getExtractionUnit());

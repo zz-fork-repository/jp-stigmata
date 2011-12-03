@@ -147,6 +147,7 @@ public class TotalElementCountComparisonPairFilter extends AbstractComparisonPai
         case TARGET_2:       sb.append("target2"); break;
         case BOTH_TARGETS:   sb.append("(target1&target2)"); break;
         case ONE_OF_TARGETS: sb.append("(target1|target2)"); break;
+        default:
         }
         sb.append(".element");
         switch(getCriterion()){
@@ -156,6 +157,7 @@ public class TotalElementCountComparisonPairFilter extends AbstractComparisonPai
         case LESS_THAN:      sb.append(" <  "); break;
         case EQUALS_AS:      sb.append(" == "); break;
         case NOT_EQUALS_AS:  sb.append(" != "); break;
+        default:
         }
         sb.append(Integer.toString(getThreshold()));
 

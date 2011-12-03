@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 import javax.swing.AbstractAction;
@@ -41,7 +41,8 @@ public class SaveAction extends AbstractAction{
     }
 
     public void setExtensions(String[] extensions){
-        this.extensions = extensions;
+        this.extensions = new String[extensions.length];
+        System.arraycopy(extensions, 0, this.extensions, 0, extensions.length);
     }
 
     public void setDescrpition(String description){
@@ -63,7 +64,7 @@ public class SaveAction extends AbstractAction{
             PrintWriter writer = null;
             try{
                 if(asciiWritable != null){
-                    writer = new PrintWriter(new FileWriter(file));
+                    writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
                     asciiWritable.writeAsciiData(writer, format);
                 }
                 else{

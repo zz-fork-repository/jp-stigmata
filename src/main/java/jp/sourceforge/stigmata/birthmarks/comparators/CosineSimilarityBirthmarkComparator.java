@@ -81,17 +81,16 @@ public class CosineSimilarityBirthmarkComparator extends
         }
     }
 
-    private class CountPair{
+    private static final class CountPair{
         private int c1 = 0;
         private int c2 = 0;
 
         public int get(boolean first){
+            int value = c2;
             if(first){
-                return c1;
+                value = c1;
             }
-            else{
-                return c2;
-            }
+            return value;
         }
 
         public void set(boolean first, int count){

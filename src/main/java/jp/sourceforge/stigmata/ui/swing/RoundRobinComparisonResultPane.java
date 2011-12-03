@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -204,7 +204,7 @@ public class RoundRobinComparisonResultPane extends JPanel{
     }
 
     private void mdsButtonActionPerformed(ActionEvent e){
-        Map<URL, BirthmarkSet> map = new HashMap<URL, BirthmarkSet>();
+        Map<URI, BirthmarkSet> map = new HashMap<URI, BirthmarkSet>();
         for(Iterator<BirthmarkSet> i = extraction.birthmarkSets(ExtractionTarget.TARGET_X); i.hasNext(); ){
             BirthmarkSet bs = i.next();
             map.put(bs.getLocation(), bs);
@@ -215,7 +215,7 @@ public class RoundRobinComparisonResultPane extends JPanel{
         }
         int index = 0;
         BirthmarkSet[] set = new BirthmarkSet[map.size()];
-        for(Map.Entry<URL, BirthmarkSet> entry: map.entrySet()){
+        for(Map.Entry<URI, BirthmarkSet> entry: map.entrySet()){
             set[index] = entry.getValue();
             index++;
         }
@@ -229,12 +229,12 @@ public class RoundRobinComparisonResultPane extends JPanel{
             for(int j = 1; j < table.getColumnCount(); j++){
                 Double d = (Double)table.getValueAt(i, j);
                 int similarity = (int)Math.round(d.doubleValue() * 100);
-                Integer dist = values.get(new Integer(similarity));
+                Integer dist = values.get(similarity);
                 if(dist == null){
-                    dist = new Integer(0);
+                    dist = 0;
                 }
-                dist = new Integer(dist.intValue() + 1);
-                values.put(new Integer(similarity), dist);
+                dist = dist.intValue() + 1;
+                values.put(similarity, dist);
             }
         }
         stigmata.showSimilarityDistributionGraph(values);

@@ -2,8 +2,9 @@ package jp.sourceforge.stigmata.result.history;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -110,13 +111,22 @@ public class ExtractedBirthmarkServiceManager{
     private void addValuesFromSystemFile(Set<String> values){
         File file = new File(BirthmarkEnvironment.getStigmataHome(), "storelocations.txt");
         if(file.exists()){
+            BufferedReader in = null;
             try{
-                BufferedReader in = new BufferedReader(new FileReader(file));
+                in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
                 String line;
                 while((line = in.readLine()) != null){
                     values.add(line);
                 }
             } catch(IOException e){
+            } finally{
+                try{
+                    if(in != null){
+                        in.close();
+                    }
+                } catch(IOException e){
+                    throw new InternalError(e.getMessage());
+                }
             }
         }
     }

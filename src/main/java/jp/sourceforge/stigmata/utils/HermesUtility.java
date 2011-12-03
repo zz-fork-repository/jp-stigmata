@@ -37,17 +37,20 @@ public class HermesUtility{
     public void updateContext(BirthmarkEnvironment env) throws IOException{
         String path = env.getProperty("location.hermes.config");
         OutputStream out = null;
-        if(path != null && path.startsWith("file:")){
-            out = new URL(path).openConnection().getOutputStream();
-        }
-        else{
-            File file = new File(BirthmarkEnvironment.getStigmataHome(), "plugins/hermes.xml");
-            out = new FileOutputStream(file);
-        }
-        HermesContextExporter exporter = new HermesContextExporter();
-        exporter.export(out, context);
-        if(out != null){
-            out.close();
+        try{
+            if(path != null && path.startsWith("file:")){
+                out = new URL(path).openConnection().getOutputStream();
+            }
+            else{
+                File file = new File(BirthmarkEnvironment.getStigmataHome(), "plugins/hermes.xml");
+                out = new FileOutputStream(file);
+            }
+            HermesContextExporter exporter = new HermesContextExporter();
+            exporter.export(out, context);
+        } finally{
+            if(out != null){
+                out.close();
+            }
         }
     }
 
@@ -83,7 +86,9 @@ public class HermesUtility{
         if(updateTargets == null){
             updateTargets = hermes.getUpdateTarget();
         }
-        return updateTargets;
+        Artifact[] artifacts = new Artifact[updateTargets.length];
+        System.arraycopy(updateTargets, 0, artifacts, 0, artifacts.length);
+        return artifacts;
     }
 
     public void update() throws IOException, HermesException{
@@ -132,10 +137,16 @@ public class HermesUtility{
             }
         } finally{
             if(in != null){
-                in.close();
+                try{
+                    in.close();
+                } catch(IOException e){
+                }
             }
             if(out != null){
-                out.close();
+                try{
+                    out.close();
+                } catch(IOException e){
+                }
             }
         }
     }
