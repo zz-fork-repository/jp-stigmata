@@ -1,0 +1,39 @@
+ ----
+ Roadmap
+ ----
+ Haruaki Tamada
+ ----
+ 2011-1203-11
+ ----
+
+{Roadmap}
+
+ *{{{#Version 3.0}Version 3.0}}
+
+ *{{{Version Policy}Version Policy}}
+
+*{Version 3.0}
+
+ * Reduce runtime memory.
+
+   * Introduce database for storing birthmarking result.
+
+ * Introduce online update/install Stigmata plugins.
+
+ * Organize required libraries and plugins.
+
+ * Introduce birthmark evaluation graph (precision/recall, f-value).
+
+*{Version Policy}
+
+ Stigmata version represents two numbers.  First number is major
+version, second number is minor version.
+
+ Major version means large changes. For example, adding new features, 
+
+ Minor version means small changes. For example, fixing bugs, refactoring, 
+
+ When project is under development, SNAPSHOT is concatenated after version number, like 3.0-SNAPSHOT.
+
+ All of subprojects of Stigmata conform this policy.
+
